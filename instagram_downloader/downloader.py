@@ -251,16 +251,17 @@ class InstagramDownloader:
             logger.info(f"Setting gallery-dl proxy to: {proxy_url}")
             # Set proxy for Instagram extractor
             config.set(('extractor', 'instagram'), 'proxy', proxy_url)
-            # Also set global proxy for all extractors
-            config.set(('extractor',), 'proxy', proxy_url)
+            # # Also set global proxy for all extractors
+            # config.set(('extractor',), 'proxy', proxy_url)
+            config.set(('extractor','instagram'), 'verify', False)  # Disable SSL verification
         
         # Disable skip to download actual files
         config.set(('extractor',), 'skip', False)
         
         # Set additional options for better reliability
-        config.set(('extractor',), 'timeout', 60.0)
-        config.set(('extractor',), 'retries', 5)
-        config.set(('extractor',), 'verify', False)  # Disable SSL verification
+        config.set(('extractor',), 'timeout', 10.0)
+        # config.set(('extractor',), 'retries', 1)
+        # config.set(('extractor',), 'verify', False)  # Disable SSL verification
 
     def _process_metadata(self, url: str) -> None:
         """
