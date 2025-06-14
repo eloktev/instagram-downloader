@@ -243,10 +243,24 @@ class InstagramDownloader:
         
         # Set proxy if provided
         if self.proxy:
-            config.set(('extractor', 'instagram'), 'proxy', self.proxy)
+            # Make sure proxy has http:// prefix
+            proxy_url = self.proxy
+            if not proxy_url.startswith(('http://', 'https://')):
+                proxy_url = 'http://' + proxy_url
+            
+            logger.info(f"Setting gallery-dl proxy to: {proxy_url}")
+            # Set proxy for Instagram extractor
+            config.set(('extractor', 'instagram'), 'proxy', proxy_url)
+            # Also set global proxy for all extractors
+            config.set(('extractor',), 'proxy', proxy_url)
         
         # Disable skip to download actual files
         config.set(('extractor',), 'skip', False)
+        
+        # Set additional options for better reliability
+        config.set(('extractor',), 'timeout', 60.0)
+        config.set(('extractor',), 'retries', 5)
+        config.set(('extractor',), 'verify', False)  # Disable SSL verification
 
     def _process_metadata(self, url: str) -> None:
         """
@@ -393,11 +407,15 @@ class InstagramDownloader:
             
         try:
             # Configure proxy if provided
-            # proxy_url = None
-            # if self.proxy:
-            #     proxy_url = f'http://{self.proxy}'
+            proxy_url = None
+            if self.proxy:
+                # Make sure proxy has http:// prefix
+                proxy_url = self.proxy
+                if not proxy_url.startswith(('http://', 'https://')):
+                    proxy_url = 'http://' + proxy_url
+                logger.info(f"Using proxy for thumbnail download: {proxy_url}")
                 
-            with httpx.Client(proxy=self.proxy, verify=False, timeout=30.0) as client:
+            with httpx.Client(proxy=proxy_url, verify=False, timeout=30.0) as client:
                 resp = client.get(images[0]['url'])
                 if resp.status_code == 200:
                     path = os.path.join(self.temp_dir, images[0]['filename'])
