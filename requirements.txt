@@ -1,0 +1,12 @@
+browser-cookie3==0.20.1
+certifi==2025.4.26
+charset-normalizer==3.4.2
+gallery_dl==1.29.7
+idna==3.10
+lz4==4.4.4
+pycryptodomex==3.23.0
+python-dateutil==2.9.0.post0
+requests==2.32.4
+six==1.17.0
+urllib3==2.4.0
+yt-dlp==2025.6.9
