@@ -11,7 +11,7 @@ setup(
     description="A Python library for downloading and processing Instagram content using gallery-dl",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/example/instagram-downloader",
+    url="https://github.com/eloktev/instagram-downloader",
     packages=find_packages(include=['instagram_downloader', 'instagram_downloader.*']),
     classifiers=[
         "Programming Language :: Python :: 3",
