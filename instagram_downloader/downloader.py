@@ -393,11 +393,11 @@ class InstagramDownloader:
             
         try:
             # Configure proxy if provided
-            proxy_url = None
-            if self.proxy:
-                proxy_url = f'http://{self.proxy}'
+            # proxy_url = None
+            # if self.proxy:
+            #     proxy_url = f'http://{self.proxy}'
                 
-            with httpx.Client(proxy=proxy_url, verify=False, timeout=30.0) as client:
+            with httpx.Client(proxy=self.proxy, verify=False, timeout=30.0) as client:
                 resp = client.get(images[0]['url'])
                 if resp.status_code == 200:
                     path = os.path.join(self.temp_dir, images[0]['filename'])
