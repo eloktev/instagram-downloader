@@ -245,9 +245,6 @@ class InstagramDownloader:
         if self.proxy:
             # Make sure proxy has http:// prefix
             proxy_url = self.proxy
-            if not proxy_url.startswith(('http://', 'https://')):
-                proxy_url = 'http://' + proxy_url
-            
             logger.info(f"Setting gallery-dl proxy to: {proxy_url}")
             # Set proxy for Instagram extractor
             config.set(('extractor', 'instagram'), 'proxy', proxy_url)
@@ -412,8 +409,6 @@ class InstagramDownloader:
             if self.proxy:
                 # Make sure proxy has http:// prefix
                 proxy_url = self.proxy
-                if not proxy_url.startswith(('http://', 'https://')):
-                    proxy_url = 'http://' + proxy_url
                 logger.info(f"Using proxy for thumbnail download: {proxy_url}")
                 
             with httpx.Client(proxy=proxy_url, verify=False, timeout=30.0) as client:
