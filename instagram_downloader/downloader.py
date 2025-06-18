@@ -562,7 +562,7 @@ class InstagramDownloader:
                     file_path = os.path.join(root, file)
                     
                     # If it's an MP4 file, reformat it using ffmpeg
-                    if file.endswith('.mp4') and self.content_type == 'reel':
+                    if file.endswith('.mp4'):
                         self._reformat_video(file_path)
                     
                     self.media_files.append(file_path)
